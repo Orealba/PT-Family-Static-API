@@ -39,32 +39,24 @@ def handle_hello():
 
 
 @app.route('/member/<int:member_id>', methods=['GET'])
-def member_id():
+def member_id(member_id):
 
     # this is how you can use the Family datastructure by calling its methods
-    member = jackson_family.member_id(id)
-    response_body = {
-    "id" == member_id
-    
-    }
+    member = jackson_family.get_member(member_id)
 
+    if member == None:
+        return jsonify("no se encontró"), 400,
 
-    return jsonify("se agregó con éxito"), 200,
+    return jsonify(member), 200,
 
 
 
-@app.route('/member>', methods=['POST'])
+@app.route('/member', methods=['POST'])
 def post_member():
-
+    print (request.form)
+    newMember = jackson_family.add_member(member)
     # this is how you can use the Family datastructure by calling its methods
-    member = jackson_family.post_member(id)
-    response_body = {
-        
-    
-    }
-
-
-    return jsonify("se agregó con éxito"), 200,
+    return jsonify(newMember), 200,
 
 @app.route('/member/<int:member_id>', methods=['DELETE'])
 def delete_member():
