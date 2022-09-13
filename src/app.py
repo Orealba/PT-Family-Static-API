@@ -53,23 +53,26 @@ def member_id(member_id):
 
 @app.route('/member', methods=['POST'])
 def post_member():
-    print (request.form)
-    newMember = jackson_family.add_member(member)
+    print (request.json)
+    newMember = jackson_family.add_member(request.json)
     # this is how you can use the Family datastructure by calling its methods
-    return jsonify(newMember), 200,
+    if newMember == request.json:
+        return jsonify('se agregó un nuevo miembro'), 200
+    else:
+        return jsonify('No hay nuevo miembro'), 400
 
 @app.route('/member/<int:member_id>', methods=['DELETE'])
-def delete_member():
+def delete_member(id):
 
     # this is how you can use the Family datastructure by calling its methods
-    member = jackson_family.delete_member(id)
-    response_body = {
-        
-    
-    }
+    members = jackson_family.delete_member(id)
+    if members == id:
+        return jsonify('no existe'), 400
+    else: 
+        return jsonify(members), 200
 
 
-    return jsonify("se agregó con éxito"), 200,
+    return jsonify("se eliminó con éxito"), 200,
 
     
 
