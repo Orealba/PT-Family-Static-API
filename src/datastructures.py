@@ -52,8 +52,12 @@ class FamilyStructure:
       
 
     def delete_member(self, id):
-       self._members.pop(id)
-       return self._members
+        member = self.get_member(id)
+        if member == None:
+            return None
+        self._members.remove(member)
+        
+        return self._members
 
     def get_member(self, id):
         

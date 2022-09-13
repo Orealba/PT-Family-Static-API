@@ -45,7 +45,7 @@ def member_id(member_id):
     member = jackson_family.get_member(member_id)
 
     if member == None:
-        return jsonify("no se encontró"), 400,
+        return jsonify("no se encontró"), 404,
 
     return jsonify(member), 200,
 
@@ -62,17 +62,17 @@ def post_member():
         return jsonify('No hay nuevo miembro'), 400
 
 @app.route('/member/<int:member_id>', methods=['DELETE'])
-def delete_member(id):
+def delete_member(member_id):
 
     # this is how you can use the Family datastructure by calling its methods
-    members = jackson_family.delete_member(id)
-    if members == id:
+    members = jackson_family.delete_member(member_id)
+    if members == None :
         return jsonify('no existe'), 400
     else: 
-        return jsonify(members), 200
+        return jsonify("se eliminó"), 200
 
 
-    return jsonify("se eliminó con éxito"), 200,
+   
 
     
 
